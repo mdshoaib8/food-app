@@ -9,11 +9,14 @@ export const Navbar = ({ setShowLogin }) => {
 
     return (
         <div className='navbar'>
-            <img
-                src={assets.logo}
-                alt=""
-                className='logo'
-            />
+            <Link to='/'>
+                <img
+                    src={assets.logo}
+                    alt=""
+                    className='logo'
+                />
+            </Link>
+
             <ul className='navbar-menu'>
                 <Link to='/' onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</Link>
                 <a href='#explore-menu' onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>menu</a>
@@ -26,7 +29,7 @@ export const Navbar = ({ setShowLogin }) => {
                     alt=""
                 />
                 <div className="navbar-search-icon">
-                    <img src={assets.basketIcon} alt="basket_icon" />
+                    <Link to='/cart'><img src={assets.basketIcon} alt="basket_icon" /></Link>
                     <div className="dot"></div>
                 </div>
                 <button onClick={() => setShowLogin(true)}>sign in</button>
