@@ -10,6 +10,7 @@ import twitterIcon from './twitter_icon.png'
 import linkedinIcon from './linkedin_icon.png'
 import playStore from './play_store.png'
 import AppStore from './app_store.png'
+import crossIcon from './cross_icon.png'
 
 import menu1 from './salad.jpg'
 import menu2 from './rolls.jpg'
@@ -53,7 +54,8 @@ export const assets = {
     twitterIcon,
     linkedinIcon,
     playStore,
-    AppStore
+    AppStore,
+    crossIcon
 }
 
 export const menu_list = [
