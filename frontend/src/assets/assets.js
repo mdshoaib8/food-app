@@ -5,6 +5,9 @@ import ratingStarts from './rating_starts.webp'
 import addIconBlack from './add_icon_black.png'
 import addIconGreen from './add_icon_green.png'
 import removeIconRed from './remove_icon_red.png'
+import facebookIcon from './facebook_icon.png'
+import twitterIcon from './twitter_icon.png'
+import linkedinIcon from './linkedin_icon.png'
 
 import menu1 from './salad.jpg'
 import menu2 from './rolls.jpg'
@@ -43,7 +46,10 @@ export const assets = {
     ratingStarts,
     addIconBlack,
     addIconGreen,
-    removeIconRed
+    removeIconRed,
+    facebookIcon,
+    twitterIcon,
+    linkedinIcon,
 }
 
 export const menu_list = [
