@@ -8,6 +8,8 @@ import removeIconRed from './remove_icon_red.png'
 import facebookIcon from './facebook_icon.png'
 import twitterIcon from './twitter_icon.png'
 import linkedinIcon from './linkedin_icon.png'
+import playStore from './play_store.png'
+import AppStore from './app_store.png'
 
 import menu1 from './salad.jpg'
 import menu2 from './rolls.jpg'
@@ -50,6 +52,8 @@ export const assets = {
     facebookIcon,
     twitterIcon,
     linkedinIcon,
+    playStore,
+    AppStore
 }
 
 export const menu_list = [
