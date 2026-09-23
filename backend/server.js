@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { connectDB } from "./config/db.js"
+import foodRouter from "./routes/foodRoute.js";
 
 // set dns for +srv protocol
 import dns from "dns"
@@ -23,10 +24,13 @@ app.use(cors())
 // db connection
 connectDB();
 
+// api endpoints
+app.use("/api/food", foodRouter)
+
 app.get("/", (req, res) => {
     res.send("API is working...")
 })
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`SERVER Connected at port:${port}`);
 })
