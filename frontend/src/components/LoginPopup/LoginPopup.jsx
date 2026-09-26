@@ -1,14 +1,56 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './LoginPopup.css'
 import { assets } from '../../assets/assets'
+import { StoreContext } from '../../context/StoreContext'
+import axios from "axios"
 
 export const LoginPopup = ({ setShowLogin }) => {
 
+    const { url, setToken } = useContext(StoreContext)
     const [currentState, setCurrentState] = useState("Login")
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        password: ""
+    })
+
+    const onChangeHandler = (event) => {
+        const name = event.target.name
+        const value = event.target.value
+        setData(data => ({
+            ...data,
+            [name]: value
+        }))
+    }
+
+    const onLogin = async (event) => {
+        event.preventDefault()
+        let newUrl = url;
+        if (currentState === "Login") {
+            newUrl += "/api/user/login" // ✅ / যোগ করা হয়েছে
+        } else {
+            newUrl += "/api/user/register"
+        }
+
+        try {
+            const response = await axios.post(newUrl, data)
+
+            if (response.data.success) {
+                setToken(response.data.token)
+                localStorage.setItem("token", response.data.token)
+                setShowLogin(false)
+            } else {
+                alert(response.data.message)
+            }
+        } catch (error) {
+            console.error(error)
+            alert("Server Error! Check backend connection.")
+        }
+    }
 
     return (
         <div className='login-popup'>
-            <form className='login-popup-container' action="">
+            <form onSubmit={onLogin} className='login-popup-container' action="">
                 <div className="login-popup-title">
                     <h2>{currentState}</h2>
                     <img onClick={() => setShowLogin(false)} src={assets.crossIcon} alt="" />
@@ -21,6 +63,9 @@ export const LoginPopup = ({ setShowLogin }) => {
                                 type="text"
                                 placeholder='Your name'
                                 required
+                                name='name'
+                                onChange={onChangeHandler}
+                                value={data.name}
                             />
                     }
 
@@ -28,14 +73,20 @@ export const LoginPopup = ({ setShowLogin }) => {
                         type="email"
                         placeholder='Your email'
                         required
+                        name='email'
+                        onChange={onChangeHandler}
+                        value={data.email}
                     />
                     <input
                         type="password"
                         placeholder='Your password'
                         required
+                        name='password'
+                        onChange={onChangeHandler}
+                        value={data.password}
                     />
                 </div>
-                <button>
+                <button type='submit'>
                     {currentState === "Sign Up" ? "Create account" : "Login"}
                 </button>
                 <div className="login-popup-condition">
