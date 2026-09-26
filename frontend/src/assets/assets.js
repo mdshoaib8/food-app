@@ -41,6 +41,9 @@ import food_17 from './cheese-pasta.jpg'
 import food_18 from './tomato-pasta.jpg'
 import food_19 from './shed-noodles.jpg'
 import food_20 from './ramen-noodles.jpg'
+import profileIcon from './profile_image.png'
+import bagIcon from './bag_icon.png'
+import logOut from './logout_icon.png'
 
 export const assets = {
     logo,
@@ -55,7 +58,10 @@ export const assets = {
     linkedinIcon,
     playStore,
     AppStore,
-    crossIcon
+    crossIcon,
+    profileIcon,
+    bagIcon,
+    logOut,
 }
 
 export const menu_list = [
