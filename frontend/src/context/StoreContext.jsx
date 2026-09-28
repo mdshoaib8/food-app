@@ -48,11 +48,15 @@ const StoreContextProvider = (props) => {
 
     // ✅ ২. খালি dependency array ([]) দেওয়া হয়েছে যাতে পেজ লোড হলে API থেকে ডাটা একবারই কল হয়
     useEffect(() => {
+
         async function loadData() {
             await fetchFoodList();
+            if (localStorage.getItem("token")) {
+                setToken(localStorage.getItem("token"))
+            }
         }
         loadData();
-    }, []); 
+    }, []);
 
     const contextValue = {
         food_list,
