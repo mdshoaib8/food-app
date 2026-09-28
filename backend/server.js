@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoute.js";
 
 // set dns for +srv protocol
 import dns from "dns"
+import cartRouter from "./routes/cartRoute.js";
 dns.setServers([
     '8.8.8.8', // Google Primary DNS
     '1.1.1.1', // Cloudflare Primary DNS
@@ -30,6 +31,7 @@ connectDB();
 app.use("/api/food", foodRouter)
 app.use("/images", express.static('uploads'))
 app.use("/api/user", userRouter)
+app.use("/api/cart", cartRouter)
 
 app.get("/", (req, res) => {
     res.send("API is working...")
