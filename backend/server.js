@@ -4,10 +4,11 @@ import { connectDB } from "./config/db.js"
 import foodRouter from "./routes/foodRoute.js";
 import 'dotenv/config'
 import userRouter from "./routes/userRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 // set dns for +srv protocol
 import dns from "dns"
-import cartRouter from "./routes/cartRoute.js";
 dns.setServers([
     '8.8.8.8', // Google Primary DNS
     '1.1.1.1', // Cloudflare Primary DNS
@@ -18,7 +19,6 @@ dns.setServers([
 // app config
 const app = express()
 const port = 4000;
-
 
 // middleware
 app.use(express.json())
@@ -32,6 +32,7 @@ app.use("/api/food", foodRouter)
 app.use("/images", express.static('uploads'))
 app.use("/api/user", userRouter)
 app.use("/api/cart", cartRouter)
+app.use("/api/order", orderRouter)
 
 app.get("/", (req, res) => {
     res.send("API is working...")
