@@ -8,20 +8,25 @@ const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
     const url = "http://localhost:4000";
 
-    // ✅ ১. কম্পোনেন্ট মাউন্ট হওয়ার সময় একবারই localStorage থেকে টোকেন চেক করবে
     const [token, setToken] = useState(() => localStorage.getItem("token") || "");
     const [food_list, setFoodList] = useState([]);
 
-    const addToCart = (itemId) => {
+    const addToCart = async (itemId) => {
         if (!cartItems[itemId]) {
             setCartItems(prev => ({ ...prev, [itemId]: 1 }));
         } else {
             setCartItems(prev => ({ ...prev, [itemId]: prev[itemId] + 1 }));
         }
+        if (token) {
+            await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } });
+        }
     };
 
-    const removeFromCart = (itemId) => {
+    const removeFromCart = async (itemId) => {
         setCartItems(prev => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+        if (token) {
+            await axios.post(url + "/api/cart/remove", { itemId }, { headers: { token } });
+        }
     };
 
     const getTotalCartAmount = () => {
@@ -46,13 +51,18 @@ const StoreContextProvider = (props) => {
         }
     };
 
-    // ✅ ২. খালি dependency array ([]) দেওয়া হয়েছে যাতে পেজ লোড হলে API থেকে ডাটা একবারই কল হয়
+    const loadCartData = async (token) => {
+        const response = await axios.post(url + "/api/cart/get", {}, { headers: { token } });
+        setCartItems(response.data.cartData);
+    };
+
     useEffect(() => {
 
         async function loadData() {
             await fetchFoodList();
             if (localStorage.getItem("token")) {
-                setToken(localStorage.getItem("token"))
+                setToken(localStorage.getItem("token"));
+                await loadCartData(localStorage.getItem("token"));
             }
         }
         loadData();
